@@ -1,4 +1,6 @@
-package com.ar.askgaming.universalnotifier;
+package com.ar.askgaming.universalnotifier.Types;
+
+import com.ar.askgaming.universalnotifier.UniversalNotifier;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -14,7 +16,7 @@ public class DiscordIntegration {
     public DiscordIntegration(UniversalNotifier plugin){
         this.plugin = plugin;
 
-        token = "MTMwNDI0MDc1OTQ2MTExNzk3Mg.GZx-lw.O4CzE_dIPoF8zaMj2H1SkgMb5PggezQ05Fg8BI";
+        token = plugin.getConfig().getString("discord.bot_token");
         
         try {
             // Inicializar JDA

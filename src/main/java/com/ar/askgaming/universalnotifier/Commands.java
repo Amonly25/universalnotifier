@@ -12,6 +12,8 @@ public class Commands implements TabExecutor {
 
     public Commands(UniversalNotifier plugin){
         this.plugin = plugin;
+        
+        plugin.getServer().getPluginCommand("universalnotifier").setExecutor(this);
     }
 
     @Override
@@ -28,9 +30,19 @@ public class Commands implements TabExecutor {
 
         switch (args[0].toLowerCase()) {
             case "discord":
-                plugin.getDiscordIntegration().sendMessage(message.toString());
+                plugin.getNotification().send(Notification.Type.DISCORD, message.toString());
                 break;
-        
+    
+            case "telegram":
+                plugin.getNotification().send(Notification.Type.TELEGRAM, message.toString());
+                break;
+            case "email":
+                plugin.getNotification().send(Notification.Type.EMAIL, message.toString());
+                break;
+            case "wsp":
+                plugin.getWhastappIntegration().send(message.toString());
+                break;
+    
             default:
                 break;
         }
