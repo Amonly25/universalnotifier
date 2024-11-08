@@ -1,0 +1,14 @@
+main: com.ar.askgaming.universalnotifier.UniversalNotifier
+name: UniversalNotifier
+version: 1.0
+author: AskGaming
+description: UniversalNotifier
+api-version: 1.21
+commands:
+  universalnotifier:
+    description: UniversalNotifier
+    usage: /universalnotifier
+    permission: universalnotifier.use
+    aliases:
+    - un
+    - notifier
