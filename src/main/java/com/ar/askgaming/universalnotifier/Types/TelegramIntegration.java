@@ -3,6 +3,7 @@ package com.ar.askgaming.universalnotifier.Types;
 import java.io.IOException;
 import java.util.List;
 
+import com.ar.askgaming.universalnotifier.NotificationManager.Alert;
 import com.ar.askgaming.universalnotifier.UniversalNotifier;
 
 import org.json.JSONObject;
@@ -31,7 +32,7 @@ public class TelegramIntegration {
         chatList = plugin.getConfig().getStringList("telegram.chats_id");
     }
 
-    public void send(String message) throws IOException {
+    public void send(Alert alert) throws IOException {
 
         for (String chatId : chatList) {
             JSONObject json = new JSONObject();

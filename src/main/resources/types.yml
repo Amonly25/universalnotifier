@@ -1,0 +1,4 @@
+SHUTDOWN:
+  message: "The server has been shutdown."
+STARTUP:
+  message: "The server has been started."

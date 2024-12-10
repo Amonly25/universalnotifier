@@ -1,9 +1,11 @@
 com\ar\askgaming\universalnotifier\Commands.class
-com\ar\askgaming\universalnotifier\Types\EmailIntegration$1.class
 com\ar\askgaming\universalnotifier\UniversalNotifier.class
 com\ar\askgaming\universalnotifier\Types\WhastappIntegration.class
-com\ar\askgaming\universalnotifier\Notification.class
+com\ar\askgaming\universalnotifier\NotificationManager$Alert.class
+com\ar\askgaming\universalnotifier\NotificationManager.class
 com\ar\askgaming\universalnotifier\Types\TelegramIntegration.class
 com\ar\askgaming\universalnotifier\Types\DiscordIntegration.class
-com\ar\askgaming\universalnotifier\Notification$Type.class
 com\ar\askgaming\universalnotifier\Types\EmailIntegration.class
+com\ar\askgaming\universalnotifier\Managers\ConfigTypesManager.class
+com\ar\askgaming\universalnotifier\NotificationManager$Type.class
+com\ar\askgaming\universalnotifier\Types\EmailIntegration$1.class

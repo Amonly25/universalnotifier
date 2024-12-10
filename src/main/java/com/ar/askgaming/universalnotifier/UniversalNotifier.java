@@ -2,6 +2,8 @@ package com.ar.askgaming.universalnotifier;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ar.askgaming.universalnotifier.Managers.ConfigTypesManager;
+import com.ar.askgaming.universalnotifier.NotificationManager.Alert;
 import com.ar.askgaming.universalnotifier.Types.DiscordIntegration;
 import com.ar.askgaming.universalnotifier.Types.EmailIntegration;
 import com.ar.askgaming.universalnotifier.Types.TelegramIntegration;
@@ -10,12 +12,13 @@ import com.ar.askgaming.universalnotifier.Types.WhastappIntegration;
 
 public class UniversalNotifier extends JavaPlugin{
     
-    DiscordIntegration discordIntegration;
-    TelegramIntegration telegramIntegration;
-    EmailIntegration emailIntegration;
-    WhastappIntegration whastappIntegration;
+    private DiscordIntegration discordIntegration;
+    private TelegramIntegration telegramIntegration;
+    private EmailIntegration emailIntegration;
+    private WhastappIntegration whastappIntegration;
 
-    Notification notification;
+    private NotificationManager notification;
+    private ConfigTypesManager configTypesManager;
 
     public void onEnable(){
         
@@ -25,19 +28,22 @@ public class UniversalNotifier extends JavaPlugin{
         telegramIntegration = new TelegramIntegration(this);
         emailIntegration = new EmailIntegration(this);
         whastappIntegration = new WhastappIntegration(this);
-        notification = new Notification(this);
+        notification = new NotificationManager(this);
+        configTypesManager = new ConfigTypesManager(this);
 
         new Commands(this);
+
+        notification.send(Alert.STARTUP);
     }
 
     public void onDisable(){
-        
+        getNotification().send(Alert.SHUTDOWN);
     }
 
     public DiscordIntegration getDiscordIntegration() {
         return discordIntegration;
     }
-    public Notification getNotification() {
+    public NotificationManager getNotification() {
         return notification;
     }
     public TelegramIntegration getTelegramIntegration() {
@@ -48,5 +54,8 @@ public class UniversalNotifier extends JavaPlugin{
     }
     public WhastappIntegration getWhastappIntegration() {
         return whastappIntegration;
+    }
+    public ConfigTypesManager getConfigTypesManager() {
+        return configTypesManager;
     }
 }
