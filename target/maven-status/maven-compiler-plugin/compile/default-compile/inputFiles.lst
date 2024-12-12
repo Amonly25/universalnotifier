@@ -1,8 +1,8 @@
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\NotificationManager.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Types\EmailIntegration.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Commands.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Types\WhastappIntegration.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Types\TelegramIntegration.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Managers\ConfigTypesManager.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Types\DiscordIntegration.java
-C:\Users\AmOnl\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\UniversalNotifier.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Integrations\Email.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Managers\AlertManager.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Managers\NotificationManager.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Integrations\Whatsapp.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\UniversalNotifier.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Commands.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Integrations\Discord.java
+C:\Users\Luisito\Desktop\vs_code\universalnotifier\src\main\java\com\ar\askgaming\universalnotifier\Integrations\Telegram.java

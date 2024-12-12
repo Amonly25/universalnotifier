@@ -6,6 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
+import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
+import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
+import com.ar.askgaming.universalnotifier.Managers.NotificationManager.Type;
+
 public class Commands implements TabExecutor {
 
     private UniversalNotifier plugin;
@@ -30,16 +34,16 @@ public class Commands implements TabExecutor {
 
         switch (args[0].toLowerCase()) {
             case "discord":
-                plugin.getNotification().send(NotificationManager.Type.DISCORD, message.toString());
+                plugin.getNotification().broadcastTo(Type.DISCORD, Alert.COMMAND, message.toString());
                 break;
             case "telegram":
-                plugin.getNotification().send(NotificationManager.Type.TELEGRAM, message.toString());
+                plugin.getNotification().broadcastTo(Type.TELEGRAM, Alert.COMMAND, message.toString());
                 break;
             case "email":
-                plugin.getNotification().send(NotificationManager.Type.EMAIL, message.toString());
+                plugin.getNotification().broadcastTo(Type.EMAIL, Alert.COMMAND, message.toString());
                 break;
             case "wsp":
-                plugin.getNotification().send(NotificationManager.Type.WHATSAPP, message.toString());
+                plugin.getNotification().broadcastTo(Type.WHATSAPP, Alert.COMMAND, message.toString());
                 break;
     
             default:

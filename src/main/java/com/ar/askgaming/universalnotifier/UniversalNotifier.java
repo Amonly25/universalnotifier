@@ -2,60 +2,62 @@ package com.ar.askgaming.universalnotifier;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.ar.askgaming.universalnotifier.Managers.ConfigTypesManager;
-import com.ar.askgaming.universalnotifier.NotificationManager.Alert;
-import com.ar.askgaming.universalnotifier.Types.DiscordIntegration;
-import com.ar.askgaming.universalnotifier.Types.EmailIntegration;
-import com.ar.askgaming.universalnotifier.Types.TelegramIntegration;
-import com.ar.askgaming.universalnotifier.Types.WhastappIntegration;
+import com.ar.askgaming.universalnotifier.Integrations.Discord;
+import com.ar.askgaming.universalnotifier.Integrations.Email;
+import com.ar.askgaming.universalnotifier.Integrations.Telegram;
+import com.ar.askgaming.universalnotifier.Integrations.Whatsapp;
+import com.ar.askgaming.universalnotifier.Managers.AlertManager;
+import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
+import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 
 
 public class UniversalNotifier extends JavaPlugin{
     
-    private DiscordIntegration discordIntegration;
-    private TelegramIntegration telegramIntegration;
-    private EmailIntegration emailIntegration;
-    private WhastappIntegration whastappIntegration;
+    private Discord discordIntegration;
+    private Telegram telegramIntegration;
+    private Email emailIntegration;
+    private Whatsapp whastappIntegration;
 
     private NotificationManager notification;
-    private ConfigTypesManager configTypesManager;
+    private AlertManager alertManager;
 
     public void onEnable(){
         
         saveDefaultConfig();
 
-        discordIntegration = new DiscordIntegration(this);
-        telegramIntegration = new TelegramIntegration(this);
-        emailIntegration = new EmailIntegration(this);
-        whastappIntegration = new WhastappIntegration(this);
+        discordIntegration = new Discord(this);
+        telegramIntegration = new Telegram(this);
+        emailIntegration = new Email(this);
+        whastappIntegration = new Whatsapp(this);
         notification = new NotificationManager(this);
-        configTypesManager = new ConfigTypesManager(this);
+        alertManager = new AlertManager(this);
 
         new Commands(this);
 
-        notification.send(Alert.STARTUP);
+        notification.broadcastToAll(Alert.STARTUP);
     }
 
     public void onDisable(){
-        getNotification().send(Alert.SHUTDOWN);
+        getNotification().broadcastToAll(Alert.SHUTDOWN);
+        discordIntegration.shutdown();
     }
 
-    public DiscordIntegration getDiscordIntegration() {
+    public Discord getDiscordIntegration() {
         return discordIntegration;
     }
     public NotificationManager getNotification() {
         return notification;
     }
-    public TelegramIntegration getTelegramIntegration() {
+    public Telegram getTelegramIntegration() {
         return telegramIntegration;
     }
-    public EmailIntegration getEmailIntegration() {
+    public Email getEmailIntegration() {
         return emailIntegration;
     }
-    public WhastappIntegration getWhastappIntegration() {
+    public Whatsapp getWhastappIntegration() {
         return whastappIntegration;
     }
-    public ConfigTypesManager getConfigTypesManager() {
-        return configTypesManager;
+    public AlertManager getAlertManager() {
+        return alertManager;
     }
 }
