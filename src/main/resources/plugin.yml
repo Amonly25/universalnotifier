@@ -12,3 +12,11 @@ commands:
     aliases:
     - un
     - notifier
+  linkdicord:
+    description: Link your discord account with your minecraft account
+    usage: /linkdiscord <discord_id>
+    permission: universalnotifier.linkdiscord
+  report:
+    description: Report a player
+    usage: /report <message>
+    permission: universalnotifier.report

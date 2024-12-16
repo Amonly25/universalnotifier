@@ -28,16 +28,13 @@ public class NotificationManager {
                 plugin.getDiscordIntegration().searchAndSend(alert, message);
                 break;
             case EMAIL:
-                // new Thread(() -> {
-                //     plugin.getEmailIntegration().send(message);
-                // }).start();
-              
+                plugin.getEmailIntegration().searchAndSend(alert, message);              
                 break;
             case TELEGRAM:
                 plugin.getTelegramIntegration().searchAndSend(alert, message);
                 break;
             case WHATSAPP:
-                //plugin.getWhastappIntegration().send(message);
+                plugin.getWhastappIntegration().searchAndSend(alert, message);
                 break;
             default:
                 break;
@@ -53,5 +50,8 @@ public class NotificationManager {
     }
     public void broadcastTo(Type type, Alert alert, String message){
         send(type, alert, message);
+    }
+    public void broadcastToAll(Alert alert, String message){
+        broadcastToAll(alert, message);
     }
 }

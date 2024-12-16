@@ -33,7 +33,12 @@ public class Report implements CommandExecutor{
         }
         Player player = (Player) sender;
         String report = "[REPORT] " + player.getName() + ": " + message.toString();
-        Bukkit.broadcast(report, "universalnotifier.broadcast");
+       
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.hasPermission("universalnotifier.broadcast")) {
+                p.sendMessage(report);
+            }
+        }
         plugin.getNotification().broadcastToAll(Alert.COMMAND_REPORT, report);
         return true;
     }

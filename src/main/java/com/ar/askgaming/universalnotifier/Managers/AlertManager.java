@@ -20,6 +20,10 @@ public class AlertManager {
         STARTUP,
         COMMAND,
         SPAWN_DRAGON,
+        COMMAND_BROADCAST,
+        COMMAND_REPORT,
+        LOW_TPS,
+        VERY_LOW_TPS
 
     }
     public AlertManager(UniversalNotifier plugin){

@@ -1,6 +1,5 @@
 package com.ar.askgaming.universalnotifier.Integrations;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +11,24 @@ import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class Discord {
     
     private JDA jda;
     private final String token;
+    private String guildId;
     private final UniversalNotifier plugin;
     private final List<String> chatList = new ArrayList<>();
+    private String activity = "";
 
     public Discord(UniversalNotifier plugin){
         this.plugin = plugin;
 
         token = plugin.getConfig().getString("discord.bot_token");
+        guildId = plugin.getConfig().getString("discord.guild_id");
+        activity = plugin.getConfig().getString("discord.activity");
 
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("discord.channels_id");
         if (section != null) {
@@ -36,12 +40,17 @@ public class Discord {
         try {
             // Inicializar JDA
             jda = JDABuilder.createDefault(token).build().awaitReady();
+            JDABuilder builder = JDABuilder.createDefault(token);
+            builder.setActivity(Activity.playing(activity));
+            builder.build().awaitReady();
+
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public synchronized void sendMessage(String channelId, String message) {
@@ -58,7 +67,7 @@ public class Discord {
     }
     public synchronized void searchAndSend(Alert alert, String message) {
         for (String chatId : chatList) {
-            Bukkit.broadcastMessage(chatId);
+            
             List<String> types = plugin.getConfig().getStringList("discord.channels_id." + chatId + ".types");
             if (types.contains(alert.toString())) {
                 sendMessage(chatId, message);
@@ -69,6 +78,5 @@ public class Discord {
         if (jda != null) {
             jda.shutdown();
         }
-    }
-    
+    }    
 }

@@ -2,3 +2,9 @@ SHUTDOWN:
   message: "The server has been shutdown."
 STARTUP:
   message: "The server has been started."
+SPAWN_DRAGON:
+  message: "A dragon has spawned."
+LOW_TPS:
+  message: "The server is experiencing low TPS."
+VERY_LOW_TPS:
+  message: "The server is experiencing very low TPS."

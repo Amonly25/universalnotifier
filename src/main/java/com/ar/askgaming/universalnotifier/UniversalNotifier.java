@@ -2,6 +2,8 @@ package com.ar.askgaming.universalnotifier;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ar.askgaming.universalnotifier.Commands.Commands;
+import com.ar.askgaming.universalnotifier.Commands.Report;
 import com.ar.askgaming.universalnotifier.Integrations.Discord;
 import com.ar.askgaming.universalnotifier.Integrations.Email;
 import com.ar.askgaming.universalnotifier.Integrations.Telegram;
@@ -33,8 +35,11 @@ public class UniversalNotifier extends JavaPlugin{
         alertManager = new AlertManager(this);
 
         new Commands(this);
+        new Report(this);
 
         notification.broadcastToAll(Alert.STARTUP);
+
+        new TpsTask(this).runTaskTimer(this, 0, 20);
     }
 
     public void onDisable(){
