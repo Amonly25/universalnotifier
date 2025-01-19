@@ -31,12 +31,12 @@ public class TpsTask extends BukkitRunnable{
         double[] tps = Bukkit.getTPS();
 
         if (tps[0] < veryLow) {
-            plugin.getNotification().broadcastToAll(Alert.VERY_LOW_TPS);
+            plugin.getNotification().broadcastToAll(Alert.VERY_LOW_TPS,null);
             lastNotification = System.currentTimeMillis();
             return;
 
         } else if (tps[0] < low) {
-            plugin.getNotification().broadcastToAll(Alert.LOW_TPS);
+            plugin.getNotification().broadcastToAll(Alert.LOW_TPS,null);
             lastNotification = System.currentTimeMillis();
         }
     }

@@ -14,13 +14,15 @@ public class CreatureSpawnListener implements Listener{
     private UniversalNotifier plugin;
     public CreatureSpawnListener(UniversalNotifier plugin) {
         this.plugin = plugin;
+
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         
         LivingEntity entity = event.getEntity();
         if (entity instanceof EnderDragon){
-            plugin.getNotification().broadcastToAll(Alert.SPAWN_DRAGON);
+            plugin.getNotification().broadcastToAll(Alert.SPAWN_DRAGON,null);
         }
     }
 }

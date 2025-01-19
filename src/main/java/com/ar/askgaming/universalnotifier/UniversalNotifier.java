@@ -8,9 +8,10 @@ import com.ar.askgaming.universalnotifier.Integrations.Discord;
 import com.ar.askgaming.universalnotifier.Integrations.Email;
 import com.ar.askgaming.universalnotifier.Integrations.Telegram;
 import com.ar.askgaming.universalnotifier.Integrations.Whatsapp;
+import com.ar.askgaming.universalnotifier.Listeners.CreatureSpawnListener;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager;
-import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
+import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
 
 
 public class UniversalNotifier extends JavaPlugin{
@@ -30,20 +31,21 @@ public class UniversalNotifier extends JavaPlugin{
         discordIntegration = new Discord(this);
         telegramIntegration = new Telegram(this);
         emailIntegration = new Email(this);
-        whastappIntegration = new Whatsapp(this);
         notification = new NotificationManager(this);
         alertManager = new AlertManager(this);
 
         new Commands(this);
         new Report(this);
 
-        notification.broadcastToAll(Alert.STARTUP);
+        new CreatureSpawnListener(this);
+
+        notification.broadcastToAll(Alert.STARTUP,null);
 
         new TpsTask(this).runTaskTimer(this, 0, 20);
     }
 
     public void onDisable(){
-        getNotification().broadcastToAll(Alert.SHUTDOWN);
+        getNotification().broadcastToAll(Alert.SHUTDOWN,null);
         discordIntegration.shutdown();
     }
 
