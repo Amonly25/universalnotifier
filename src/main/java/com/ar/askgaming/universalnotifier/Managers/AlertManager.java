@@ -23,7 +23,8 @@ public class AlertManager {
         COMMAND_BROADCAST,
         COMMAND_REPORT,
         LOW_TPS,
-        VERY_LOW_TPS
+        VERY_LOW_TPS,
+        HAPPYHOUR_START
 
     }
     public AlertManager(UniversalNotifier plugin){

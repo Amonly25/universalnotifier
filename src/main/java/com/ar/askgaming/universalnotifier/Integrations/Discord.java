@@ -38,12 +38,9 @@ public class Discord {
         }
 
         try {
-            // Inicializar JDA
-            jda = JDABuilder.createDefault(token).build().awaitReady();
-            JDABuilder builder = JDABuilder.createDefault(token);
-            builder.setActivity(Activity.playing(activity));
-            builder.build().awaitReady();
-
+            jda = JDABuilder.createDefault(token)
+                    .setActivity(Activity.playing(activity))
+                    .build().awaitReady();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             e.printStackTrace();

@@ -9,6 +9,7 @@ import com.ar.askgaming.universalnotifier.Integrations.Email;
 import com.ar.askgaming.universalnotifier.Integrations.Telegram;
 import com.ar.askgaming.universalnotifier.Integrations.Whatsapp;
 import com.ar.askgaming.universalnotifier.Listeners.CreatureSpawnListener;
+import com.ar.askgaming.universalnotifier.Listeners.HappyHourStartListener;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
@@ -38,6 +39,7 @@ public class UniversalNotifier extends JavaPlugin{
         new Report(this);
 
         new CreatureSpawnListener(this);
+        new HappyHourStartListener(this);
 
         notification.broadcastToAll(Alert.STARTUP,null);
 
@@ -47,6 +49,7 @@ public class UniversalNotifier extends JavaPlugin{
     public void onDisable(){
         getNotification().broadcastToAll(Alert.SHUTDOWN,null);
         discordIntegration.shutdown();
+        telegramIntegration.shutdown();
     }
 
     public Discord getDiscordIntegration() {

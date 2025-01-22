@@ -1,10 +1,12 @@
 SHUTDOWN:
-  message: "The server has been shutdown."
+  message: "El servidor ha sido apagado."
 STARTUP:
-  message: "The server has been started."
+  message: "El servidor ha sido iniciado."
 SPAWN_DRAGON:
-  message: "A dragon has spawned."
+  message: "El dragón del End ha aparecido!"
 LOW_TPS:
-  message: "The server is experiencing low TPS."
+  message: "El servidor está experimentando un TPS bajo."
 VERY_LOW_TPS:
-  message: "The server is experiencing very low TPS."
+  message: "El servidor está experimentando un TPS muy bajo."
+HAPPYHOUR_START:
+  message: "La Happy Hour de {mode} ha comenzado."

@@ -23,7 +23,7 @@ public class Commands implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 0){
-            sender.sendMessage("§cUse /notifier discord/telegram/email/wsp <message>");
+            sender.sendMessage("§cUse /notifier discord/telegram/email <message>");
             return true;
         }
 
@@ -45,10 +45,10 @@ public class Commands implements TabExecutor {
                 plugin.getNotification().broadcastTo(Type.EMAIL, Alert.COMMAND_BROADCAST, message.toString());
                 sender.sendMessage("Proccessing email message request...");
                 break;
-            case "wsp":
-                plugin.getNotification().broadcastTo(Type.WHATSAPP, Alert.COMMAND_BROADCAST, message.toString());
-                sender.sendMessage("Proccessing whatsapp message request...");
-                break;
+            // case "wsp":
+            //     plugin.getNotification().broadcastTo(Type.WHATSAPP, Alert.COMMAND_BROADCAST, message.toString());
+            //     sender.sendMessage("Proccessing whatsapp message request...");
+            //     break;
     
             default:
                 sender.sendMessage("§cUse /notifier discord/telegram/email/wsp <message>");
@@ -60,7 +60,7 @@ public class Commands implements TabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
-            return List.of("discord", "telegram", "email", "wsp");
+            return List.of("discord", "telegram", "email");
         }
         return null;
     }

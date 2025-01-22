@@ -71,10 +71,15 @@ public class Telegram {
 
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                plugin.getLogger().warning("Error sending message to chat: " + chatId);
-                throw new IOException("Unexpected code " + response);
+                plugin.getLogger().warning("Failed to send message to chat: " + chatId + " | Response code: " + response.code());
             }
             plugin.getLogger().info("Message sent to chat: " + chatId);
+        }
+    }
+    public void shutdown() {
+        if (httpClient != null && httpClient.connectionPool() != null) {
+            httpClient.connectionPool().evictAll(); // Limpia conexiones activas
+            httpClient.dispatcher().executorService().shutdown(); // Cierra subprocesos
         }
     }
 }

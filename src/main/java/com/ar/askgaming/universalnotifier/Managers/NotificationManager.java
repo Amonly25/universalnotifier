@@ -15,7 +15,7 @@ public class NotificationManager {
         DISCORD,
         EMAIL,
         TELEGRAM,
-        WHATSAPP
+        // WHATSAPP
     }
 
     public void send(Type type, Alert alert, String message){

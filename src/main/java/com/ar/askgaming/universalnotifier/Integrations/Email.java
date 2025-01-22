@@ -41,8 +41,8 @@ public class Email {
         this.user = plugin.getConfig().getString("email.username");
         this.password = plugin.getConfig().getString("email.password");
         this.subject = plugin.getConfig().getString("email.subject");
-        this.debug = plugin.getConfig().getString("email.debug");
-        this.timeout = plugin.getConfig().getString("email.timeout");
+        this.debug = plugin.getConfig().getString("email.debug", "false");
+        this.timeout = plugin.getConfig().getString("email.timeout", "5000");
         this.ssl = plugin.getConfig().getString("email.ssl");
 
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("email.list");
@@ -65,12 +65,12 @@ public class Email {
         // Configuración de las propiedades del servidor SMTP
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.ssl.enable", ssl); // Usar SSL en lugar de STARTTLS
+        properties.put("mail.smtp.ssl.enable", Boolean.toString(Boolean.parseBoolean(ssl)));
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port); // Puerto para TLS
-        properties.put("mail.smtp.connectiontimeout", timeout); // 5 segundos de timeout
-        properties.put("mail.smtp.timeout", timeout); // 5 segundos de timeout
-        properties.put("mail.smtp.writetimeout", timeout);
+        properties.put("mail.smtp.connectiontimeout", parseTimeout(timeout, "5000")); // valor predeterminado 5000 ms
+        properties.put("mail.smtp.timeout", parseTimeout(timeout, "5000"));
+        properties.put("mail.smtp.writetimeout", parseTimeout(timeout, "5000"));
         properties.put("mail.debug", debug); // Habilitar depuración
         // Crear una sesión de correo
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -88,11 +88,20 @@ public class Email {
             message.setSubject(subject);
             message.setText(messageBody);
 
-            // Enviar el mensaje
-            Transport.send(message);
-
+            try (Transport transport = session.getTransport("smtp")) {
+                transport.connect(host, user, password);
+                transport.sendMessage(message, message.getAllRecipients());
+                plugin.getLogger().info("Email sent to " + email);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-        }  
+            plugin.getLogger().severe("Failed to send email to " + email + ": " + e.getMessage());
+        } 
     }  
+    private String parseTimeout(String value, String defaultValue) {
+        try {
+            return String.valueOf(Integer.parseInt(value));
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 }
