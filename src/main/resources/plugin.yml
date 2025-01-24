@@ -3,6 +3,7 @@ name: UniversalNotifier
 version: 1.0
 author: AskGaming
 description: UniversalNotifier
+soft-depend: [HappyHour, Warzone]
 api-version: 1.21
 commands:
   universalnotifier:

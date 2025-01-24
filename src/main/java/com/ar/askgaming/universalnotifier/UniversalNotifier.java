@@ -1,5 +1,6 @@
 package com.ar.askgaming.universalnotifier;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ar.askgaming.universalnotifier.Commands.Commands;
@@ -10,10 +11,10 @@ import com.ar.askgaming.universalnotifier.Integrations.Telegram;
 import com.ar.askgaming.universalnotifier.Integrations.Whatsapp;
 import com.ar.askgaming.universalnotifier.Listeners.CreatureSpawnListener;
 import com.ar.askgaming.universalnotifier.Listeners.HappyHourStartListener;
+import com.ar.askgaming.universalnotifier.Listeners.WarzoneListener;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
-
 
 public class UniversalNotifier extends JavaPlugin{
     
@@ -39,7 +40,17 @@ public class UniversalNotifier extends JavaPlugin{
         new Report(this);
 
         new CreatureSpawnListener(this);
-        new HappyHourStartListener(this);
+
+        if (getServer().getPluginManager().getPlugin("HappyHour") != null) {
+            getLogger().info("HappyHour plugin found, registering HappyHourStartListener");
+            Bukkit.getPluginManager().registerEvents(new HappyHourStartListener(this), this);
+
+        }
+
+        if (getServer().getPluginManager().getPlugin("Warzone") != null) {
+            getLogger().info("Warzone plugin found, registering WarzoneStartListener");
+            Bukkit.getPluginManager().registerEvents(new WarzoneListener(this), this);
+        }
 
         notification.broadcastToAll(Alert.STARTUP,null);
 

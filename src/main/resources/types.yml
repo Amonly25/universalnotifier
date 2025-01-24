@@ -10,3 +10,5 @@ VERY_LOW_TPS:
   message: "El servidor está experimentando un TPS muy bajo."
 HAPPYHOUR_START:
   message: "La Happy Hour de {mode} ha comenzado."
+WARZONE_START:
+  message: "El Warzone Boss ha aparecido!"

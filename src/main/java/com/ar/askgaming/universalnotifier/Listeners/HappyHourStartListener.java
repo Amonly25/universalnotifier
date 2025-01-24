@@ -13,13 +13,13 @@ public class HappyHourStartListener implements Listener{
     public HappyHourStartListener(UniversalNotifier plugin) {
         this.plugin = plugin;
 
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler
     public void onHappyHourStart(HappyHourStartEvent event) {
+
         String mode = event.getHappyHour().getDisplayName();
         String message = plugin.getAlertManager().getConfig().getString(Alert.HAPPYHOUR_START.toString() + ".message","No message found for alert: " + Alert.HAPPYHOUR_START.toString());
-        message = message.replace("%mode%", mode);
+        message = message.replace("{mode}", mode);
         plugin.getNotification().broadcastToAll(Alert.HAPPYHOUR_START,message);
     }
 
