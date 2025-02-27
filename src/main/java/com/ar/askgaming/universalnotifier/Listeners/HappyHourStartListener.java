@@ -3,7 +3,7 @@ package com.ar.askgaming.universalnotifier.Listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.ar.askgaming.happyhour.CustomEvent.HappyHourStartEvent;
+import com.ar.askgaming.happyhour.Events.HappyHourStartEvent;
 import com.ar.askgaming.universalnotifier.UniversalNotifier;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 

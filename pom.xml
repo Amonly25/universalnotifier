@@ -46,7 +46,7 @@
         <dependency>
             <groupId>com.ar.askgaming.happyhour</groupId>
             <artifactId>happyhour</artifactId>
-            <version>1.4.5</version>
+            <version>1.5</version>
             <scope>provided</scope>
         </dependency>
 
