@@ -1,0 +1,53 @@
+
+telegram:
+  bot_token: "" 
+  chats_id:
+    -4598196712: #Public chat
+      types:
+      - STARTUP
+      - SHUTDOWN
+      - COMMAND_BROADCAST
+      - CUSTOM
+    5806721066: #Private chat
+      types:
+      - COMMAND_REPORT
+      - LOW_TPS
+      - VERY_LOW_TPS
+
+discord:
+  bot_token: ""
+  activity: "mc.askgaming.net"
+  channels_id:
+    1304243175933870171: #Public channel
+      types:
+      - STARTUP
+      - SHUTDOWN
+      - COMMAND_BROADCAST
+      - CUSTOM
+    773436294100549642: #Private channel
+      types:
+      - COMMAND_REPORT
+      - LOW_TPS
+      - VERY_LOW_TPS
+
+email:
+  host: "mail.askgaming.com.ar"
+  port: "465" 
+  username: ""
+  password: ""
+  ssl: "true" #If you dont use ssl, i cant bring you support, you should use a secure connection.
+  debug: "false" #If you want to see debug messages, set this to true.
+  timeout: "10000" #10 seconds.
+  subject: "Minecraft Server Notification"
+  list: #REPLACE . WITH * 
+    amonly97@gmail*com:
+      types:
+      #- STARTUP
+      #- SHUTDOWN
+      #- COMMAND_BROADCAST
+      #- COMMAND_REPORT
+      #- LOW_TPS
+      #- VERY_LOW_TPS
+
+
+

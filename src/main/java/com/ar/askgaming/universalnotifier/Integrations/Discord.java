@@ -2,6 +2,7 @@ package com.ar.askgaming.universalnotifier.Integrations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -86,6 +87,10 @@ public class Discord {
     public void shutdown() {
         if (jda != null && jda.getStatus() != JDA.Status.SHUTDOWN) {
             jda.shutdown();
+            ExecutorService pool = jda.getRateLimitPool();
+            if (pool != null) {
+                pool.shutdownNow();
+            }
         }
     }    
 }

@@ -42,31 +42,17 @@
             <artifactId>okhttp</artifactId>
             <version>4.9.3</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.ar.askgaming.happyhour</groupId>
-            <artifactId>happyhour</artifactId>
-            <version>1.5</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ar.askgaming.warzone</groupId>
-            <artifactId>warzone</artifactId>
-            <version>1.7.3</version>
-            <scope>provided</scope>
-        </dependency>
       
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20240303</version> <!-- Verifica que esta sea la última versión disponible -->
+            <version>20240303</version>
         </dependency>
 
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version> <!-- Verifica si hay una nueva versión -->
+            <version>1.6.2</version>
         </dependency>
 
     </dependencies>
