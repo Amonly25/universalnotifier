@@ -45,7 +45,7 @@ public class Report implements CommandExecutor{
         }
 
         String report = "[REPORT] " + player.getName() + ": " + message.toString();
-        player.sendMessage("§aReporte enviado correctamente");
+        player.sendMessage("§aYour report has been sent to the staff team");
         cooldown.put(player, System.currentTimeMillis());
         
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -53,7 +53,7 @@ public class Report implements CommandExecutor{
                 p.sendMessage(report);;
             }
         }
-        plugin.getNotification().broadcastToAll(Alert.COMMAND_REPORT, report);
+        plugin.getNotificationManager().broadcastToAll(Alert.COMMAND_REPORT, report);
         return true;
     }
 

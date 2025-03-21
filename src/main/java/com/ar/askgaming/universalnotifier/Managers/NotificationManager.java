@@ -15,7 +15,6 @@ public class NotificationManager {
         DISCORD,
         EMAIL,
         TELEGRAM,
-        // WHATSAPP
     }
 
     public void send(Type type, Alert alert, String message){
@@ -30,9 +29,6 @@ public class NotificationManager {
             case TELEGRAM:
                 plugin.getTelegramIntegration().searchAndSend(alert, message);
                 break;
-            // case WHATSAPP:
-            //     plugin.getWhastappIntegration().searchAndSend(alert, message);
-            //     break;
             default:
                 break;
         }

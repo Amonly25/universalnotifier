@@ -3,7 +3,6 @@ name: UniversalNotifier
 version: 1.0
 author: AskGaming
 description: UniversalNotifier
-soft-depend: [HappyHour, Warzone]
 api-version: 1.21
 commands:
   universalnotifier:
@@ -13,10 +12,6 @@ commands:
     aliases:
     - un
     - notifier
-  linkdicord:
-    description: Link your discord account with your minecraft account
-    usage: /linkdiscord <discord_id>
-    permission: universalnotifier.linkdiscord
   report:
     description: Report a player
     usage: /report <message>

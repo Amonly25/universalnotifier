@@ -30,21 +30,30 @@ public class Email {
     private String timeout;
     private String ssl;
 
-    private UniversalNotifier plugin;
+    private final UniversalNotifier plugin;
 
     public Email(UniversalNotifier plugin) {
         
         this.plugin = plugin;
         
-        this.host = plugin.getConfig().getString("email.host");
-        this.port = plugin.getConfig().getString("email.port");
-        this.user = plugin.getConfig().getString("email.username");
-        this.password = plugin.getConfig().getString("email.password");
-        this.subject = plugin.getConfig().getString("email.subject");
+        loadConfig();
+    }
+    public void loadConfig(){
+        this.host = plugin.getConfig().getString("email.host", "");
+        this.port = plugin.getConfig().getString("email.port", "");
+        this.user = plugin.getConfig().getString("email.username", "");
+        this.password = plugin.getConfig().getString("email.password", "");
+        this.subject = plugin.getConfig().getString("email.subject", "Server Notification");
         this.debug = plugin.getConfig().getString("email.debug", "false");
         this.timeout = plugin.getConfig().getString("email.timeout", "5000");
-        this.ssl = plugin.getConfig().getString("email.ssl");
+        this.ssl = plugin.getConfig().getString("email.ssl", "true");
 
+        if (host.isEmpty()|| port.isEmpty() || user.isEmpty()|| password.isEmpty()) {
+            plugin.getLogger().severe("Missing email configuration! Please check config.yml");
+            return;
+        }
+
+        emails.clear();
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("email.list");
         if (section != null) {
             for (String key : section.getKeys(false)) {
@@ -62,17 +71,17 @@ public class Email {
         }
     }
     public void send(String email, String messageBody) {
-        // Configuración de las propiedades del servidor SMTP
+        // Configurations for the email
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.ssl.enable", Boolean.toString(Boolean.parseBoolean(ssl)));
         properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", port); // Puerto para TLS
-        properties.put("mail.smtp.connectiontimeout", parseTimeout(timeout, "5000")); // valor predeterminado 5000 ms
+        properties.put("mail.smtp.port", port); // TLS Port
+        properties.put("mail.smtp.connectiontimeout", parseTimeout(timeout, "5000")); // Connection timeout
         properties.put("mail.smtp.timeout", parseTimeout(timeout, "5000"));
         properties.put("mail.smtp.writetimeout", parseTimeout(timeout, "5000"));
-        properties.put("mail.debug", debug); // Habilitar depuración
-        // Crear una sesión de correo
+        properties.put("mail.debug", debug); // Debug mode
+        // Create a session
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -88,10 +97,13 @@ public class Email {
             message.setSubject(subject);
             message.setText(messageBody);
 
-            try (Transport transport = session.getTransport("smtp")) {
+            Transport transport = session.getTransport("smtp");
+            try {
                 transport.connect(host, user, password);
                 transport.sendMessage(message, message.getAllRecipients());
                 plugin.getLogger().info("Email sent to " + email);
+            } finally {
+                transport.close();
             }
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to send email to " + email + ": " + e.getMessage());

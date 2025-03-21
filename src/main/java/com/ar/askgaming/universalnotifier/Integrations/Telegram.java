@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.json.JSONObject;
 
@@ -19,23 +18,38 @@ import okhttp3.Response;
 
 public class Telegram {
 
-    private UniversalNotifier plugin;
+    private final UniversalNotifier plugin;
 
     private final String API_URL;
-    private String botToken;
     private final OkHttpClient httpClient;
+    private String botToken;
     private List<String> chatList = new ArrayList<>();
 
     public Telegram(UniversalNotifier plugin) {
         this.plugin = plugin;
-        this.botToken = plugin.getConfig().getString("telegram.bot_token");
-        this.httpClient = new OkHttpClient();
+
+        httpClient = new OkHttpClient();
         API_URL = "https://api.telegram.org/bot";
         
+        loadConfig();
+    }
+    public void loadConfig(){
+        this.botToken = plugin.getConfig().getString("telegram.bot_token","");
+
+        if (botToken.isEmpty()) {
+            plugin.getLogger().severe("Telegram bot token is missing in the config!");
+        }
+
+        chatList.clear();
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("telegram.chats_id");
         if (section != null) {
             for (String key : section.getKeys(false)) {
-                chatList.add(key);
+                String chatId = plugin.getConfig().getString("telegram.chats_id." + key + ".id");
+                if (chatId != null && !chatId.isEmpty()) {
+                    chatList.add(chatId);
+                } else {
+                    plugin.getLogger().warning("Invalid or missing chat ID for key: " + key);
+                }
             }
         }
     }
@@ -46,7 +60,7 @@ public class Telegram {
                 try {
                     sendMessage(chatId, message);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                     plugin.getLogger().severe("Error sending Telegram message to chat " + chatId + ": " + e.getMessage());
                 }
             }
         }
@@ -71,9 +85,13 @@ public class Telegram {
 
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                plugin.getLogger().warning("Failed to send message to chat: " + chatId + " | Response code: " + response.code());
+                String responseBody = response.body() != null ? response.body().string() : "No response body";
+                plugin.getLogger().warning("Failed to send message to chat: " + chatId +
+                        " | Response code: " + response.code() +
+                        " | Response body: " + responseBody);
+            } else {
+                plugin.getLogger().info("Message sent to chat: " + chatId);
             }
-            plugin.getLogger().info("Message sent to chat: " + chatId);
         }
     }
     public void shutdown() {

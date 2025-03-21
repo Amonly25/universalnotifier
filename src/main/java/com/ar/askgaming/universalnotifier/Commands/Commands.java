@@ -34,24 +34,26 @@ public class Commands implements TabExecutor {
 
         switch (args[0].toLowerCase()) {
             case "discord":
-                plugin.getNotification().broadcastTo(Type.DISCORD, Alert.COMMAND_BROADCAST, message.toString());
+                plugin.getNotificationManager().broadcastTo(Type.DISCORD, Alert.COMMAND_BROADCAST, message.toString());
                 sender.sendMessage("Proccessing discord message request...");
                 break;
             case "telegram":
-                plugin.getNotification().broadcastTo(Type.TELEGRAM, Alert.COMMAND_BROADCAST, message.toString());
+                plugin.getNotificationManager().broadcastTo(Type.TELEGRAM, Alert.COMMAND_BROADCAST, message.toString());
                 sender.sendMessage("Proccessing telegram message request...");
                 break;
             case "email":
-                plugin.getNotification().broadcastTo(Type.EMAIL, Alert.COMMAND_BROADCAST, message.toString());
+                plugin.getNotificationManager().broadcastTo(Type.EMAIL, Alert.COMMAND_BROADCAST, message.toString());
                 sender.sendMessage("Proccessing email message request...");
+                break;    
+            case "reload":
+                plugin.reloadConfig();
+                plugin.getTelegramIntegration().loadConfig();
+                plugin.getDiscordIntegration().loadConfig();
+                plugin.getEmailIntegration().loadConfig();
+                sender.sendMessage("§aConfig reloaded");
                 break;
-            // case "wsp":
-            //     plugin.getNotification().broadcastTo(Type.WHATSAPP, Alert.COMMAND_BROADCAST, message.toString());
-            //     sender.sendMessage("Proccessing whatsapp message request...");
-            //     break;
-    
             default:
-                sender.sendMessage("§cUse /notifier discord/telegram/email/wsp <message>");
+                sender.sendMessage("§cUse /notifier discord/telegram/email <message>");
                 break;
         }
         return true;

@@ -1,6 +1,5 @@
 package com.ar.askgaming.universalnotifier;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ar.askgaming.universalnotifier.Commands.Commands;
@@ -8,10 +7,6 @@ import com.ar.askgaming.universalnotifier.Commands.Report;
 import com.ar.askgaming.universalnotifier.Integrations.Discord;
 import com.ar.askgaming.universalnotifier.Integrations.Email;
 import com.ar.askgaming.universalnotifier.Integrations.Telegram;
-import com.ar.askgaming.universalnotifier.Integrations.Whatsapp;
-import com.ar.askgaming.universalnotifier.Listeners.CreatureSpawnListener;
-import com.ar.askgaming.universalnotifier.Listeners.HappyHourStartListener;
-import com.ar.askgaming.universalnotifier.Listeners.WarzoneListener;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager;
 import com.ar.askgaming.universalnotifier.Managers.AlertManager.Alert;
 import com.ar.askgaming.universalnotifier.Managers.NotificationManager;
@@ -21,13 +16,14 @@ public class UniversalNotifier extends JavaPlugin{
     private Discord discordIntegration;
     private Telegram telegramIntegration;
     private Email emailIntegration;
-    private Whatsapp whastappIntegration;
 
     private NotificationManager notification;
     private AlertManager alertManager;
 
+    private static UniversalNotifier instance;
+
     public void onEnable(){
-        
+        instance = this;
         saveDefaultConfig();
 
         discordIntegration = new Discord(this);
@@ -39,26 +35,13 @@ public class UniversalNotifier extends JavaPlugin{
         new Commands(this);
         new Report(this);
 
-        new CreatureSpawnListener(this);
-
-        if (getServer().getPluginManager().getPlugin("HappyHour") != null) {
-            getLogger().info("HappyHour plugin found, registering HappyHourStartListener");
-            Bukkit.getPluginManager().registerEvents(new HappyHourStartListener(this), this);
-
-        }
-
-        if (getServer().getPluginManager().getPlugin("Warzone") != null) {
-            getLogger().info("Warzone plugin found, registering WarzoneStartListener");
-            Bukkit.getPluginManager().registerEvents(new WarzoneListener(this), this);
-        }
-
         notification.broadcastToAll(Alert.STARTUP,null);
 
         new TpsTask(this).runTaskTimer(this, 0, 20);
     }
 
     public void onDisable(){
-        getNotification().broadcastToAll(Alert.SHUTDOWN,null);
+        notification.broadcastToAll(Alert.SHUTDOWN,null);
         discordIntegration.shutdown();
         telegramIntegration.shutdown();
     }
@@ -66,7 +49,7 @@ public class UniversalNotifier extends JavaPlugin{
     public Discord getDiscordIntegration() {
         return discordIntegration;
     }
-    public NotificationManager getNotification() {
+    public NotificationManager getNotificationManager() {
         return notification;
     }
     public Telegram getTelegramIntegration() {
@@ -75,10 +58,11 @@ public class UniversalNotifier extends JavaPlugin{
     public Email getEmailIntegration() {
         return emailIntegration;
     }
-    public Whatsapp getWhastappIntegration() {
-        return whastappIntegration;
-    }
+
     public AlertManager getAlertManager() {
         return alertManager;
+    }
+    public static UniversalNotifier getInstance() {
+        return instance;
     }
 }
