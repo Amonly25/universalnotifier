@@ -1,6 +1,6 @@
 main: com.ar.askgaming.universalnotifier.UniversalNotifier
 name: UniversalNotifier
-version: 1.0
+version: 1.1
 author: AskGaming
 description: UniversalNotifier
 api-version: 1.21
