@@ -112,6 +112,7 @@ email:
 		<groupId>com.github.Amonly25</groupId>
         	<artifactId>universalnotifier</artifactId>
         	<version>-SNAPSHOT</version>
+		<scope>provided</scope>
 	</dependency>
 </dependencies>
 
