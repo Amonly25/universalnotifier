@@ -44,12 +44,7 @@ public class Telegram {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("telegram.chats_id");
         if (section != null) {
             for (String key : section.getKeys(false)) {
-                String chatId = plugin.getConfig().getString("telegram.chats_id." + key + ".id");
-                if (chatId != null && !chatId.isEmpty()) {
-                    chatList.add(chatId);
-                } else {
-                    plugin.getLogger().warning("Invalid or missing chat ID for key: " + key);
-                }
+                chatList.add(key);
             }
         }
     }

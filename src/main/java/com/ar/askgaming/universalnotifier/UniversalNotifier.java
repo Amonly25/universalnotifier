@@ -36,8 +36,10 @@ public class UniversalNotifier extends JavaPlugin{
         new Report(this);
 
         notification.broadcastToAll(Alert.STARTUP,null);
+        if (getServer().getName().contains("Paper")) {
+            new TpsTask(this).runTaskTimer(this, 0, 20);
+        } else getLogger().warning("This plugin is designed to work with PaperSpigot. Tps feature will not work.");
 
-        new TpsTask(this).runTaskTimer(this, 0, 20);
     }
 
     public void onDisable(){
@@ -65,4 +67,5 @@ public class UniversalNotifier extends JavaPlugin{
     public static UniversalNotifier getInstance() {
         return instance;
     }
+
 }
