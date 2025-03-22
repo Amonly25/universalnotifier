@@ -97,3 +97,27 @@ email:
       - SHUTDOWN
       - COMMAND_REPORT
 ```
+
+## Developers
+### Usage
+```
+<repositories>
+	<repository>
+		<id>jitpack.io</id>
+		<url>https://jitpack.io</url>
+	</repository>
+   </repositories>
+<dependencies>
+	<dependency>
+		<groupId>com.github.Amonly25</groupId>
+        <artifactId>universalnotifier</artifactId>
+        <version>-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+
+if (plugin.getServer().getPluginManager().getPlugin("UniversalNotifier") != null) {
+	UniversalNotifier notifier = UniversalNotifier.getInstance();
+	String message = "Your custom message";
+	notifier.getNotificationManager().broadcastToAll(Alert.CUSTOM, message);
+}
+```
