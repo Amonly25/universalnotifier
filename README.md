@@ -106,13 +106,13 @@ email:
 		<id>jitpack.io</id>
 		<url>https://jitpack.io</url>
 	</repository>
-   </repositories>
+</repositories>
 <dependencies>
 	<dependency>
 		<groupId>com.github.Amonly25</groupId>
-        <artifactId>universalnotifier</artifactId>
-        <version>-SNAPSHOT</version>
-    </dependency>
+        	<artifactId>universalnotifier</artifactId>
+        	<version>-SNAPSHOT</version>
+	</dependency>
 </dependencies>
 
 if (plugin.getServer().getPluginManager().getPlugin("UniversalNotifier") != null) {
